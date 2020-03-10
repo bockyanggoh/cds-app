@@ -31,7 +31,7 @@ jobs:
             echo $DOCKER_USERNAME
             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
             docker push bockyanggoh/cds
-  deploy:
+  deployToKubernetes:
     docker:
       - image: tinyworks/azcli:2.1.0-alpine
     steps:
@@ -65,7 +65,7 @@ workflows:
           requires:
             - build
           context: dockerhub
-      - deploy:
+      - deployToKubernetes:
           requires:
             - releaseArtifact
           context: azuredeploy
