@@ -8,14 +8,15 @@ jobs:
       - restore_cache:
           keys:
             - maven-repo-v1-{{.Branch}}-{{checksum "pom.xml"}}
-      - unit_tests:
+      - run:
+          name: Run Tests
           command: |
             mvn clean test
       - save_cache:
           paths:
             - ~/.m2
           key: maven-repo-v1-{{.Branch}}-{{checksum "pom.xml"}}
-      - docker_build:
+      - run:
           name: Build And Push
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
