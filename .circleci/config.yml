@@ -39,19 +39,15 @@ jobs:
       - run:
           name: Placeholder
           command: |
-            echo Hello World
-#      - run:
-#          name: Deploy to AKS
-#          command: |
-#            az login --service-principal --username $AZURE_USERNAME --password $AZURE_PASSWORD --tenant $AZURE_TENANT
-#            az aks get-credentials -g poc-lms-rg -n poc-lms-002
-#            kubectl apply -f ./kubernetes/development/app.yml
-#            kubectl annotate deployment.v1.apps/cds-app kubernetes.io/change-cause="$(git log -1 --pretty=%B)" -n staging
-#            kubectl set image deployments/cds-app cds-app=bockyanggoh/cds:1.0.$CIRCLE_BUILD_NUM -n staging
-#            curl https://raw.githubusercontent.com/tinyworkssoftware/wholesome-scripts/master/kube-wait.sh --output kube-wait.sh
-#            chmod 700 *.sh
-#            ./kube-wait.sh staging cds-app
-#            kubectl get svc -lapp=cds-app-svc -n staging
+            az login --service-principal --username $AZURE_USERNAME --password $AZURE_PASSWORD --tenant $AZURE_TENANT
+            az aks get-credentials -g poc-lms-rg -n poc-lms-002
+            kubectl apply -f ./kubernetes/development/app.yml
+            kubectl annotate deployment.v1.apps/cds-app kubernetes.io/change-cause="$(git log -1 --pretty=%B)" -n staging
+            kubectl set image deployments/cds-app cds-app=bockyanggoh/cds:1.0.$CIRCLE_BUILD_NUM -n staging
+            curl https://raw.githubusercontent.com/tinyworkssoftware/wholesome-scripts/master/kube-wait.sh --output kube-wait.sh
+            chmod 700 *.sh
+            ./kube-wait.sh staging cds-app
+            kubectl get svc -lapp=cds-app-svc -n staging
 workflows:
   version: 2
   build:
