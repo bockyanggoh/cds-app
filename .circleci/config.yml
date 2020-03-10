@@ -5,7 +5,6 @@ jobs:
       - image: maven:3.6.3-jdk-11
     steps:
       - checkout
-      - setup_remote_docker
       - restore_cache:
           keys:
             - maven-repo-v1-{{.Branch}}-{{checksum "pom.xml"}}
@@ -17,15 +16,24 @@ jobs:
           paths:
             - ~/.m2
           key: maven-repo-v1-{{.Branch}}-{{checksum "pom.xml"}}
+  releaseArtifact:
+    machine: true
+    steps:
+      - checkout
       - run:
-          name: Build And Push
+          name: Build
           command: |
-            docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
             docker build -t bockyanggoh/cds:latest .
             docker tag bockyanggoh/cds:latest bockyanggoh/cds:1.0.${CIRCLE_BUILD_NUM}
+      - run:
+          name: Push Images to DockerHub
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
             docker push bockyanggoh/cds
+
 workflows:
   version: 2
   build:
     jobs:
       - build
+      - releaseArtifact
