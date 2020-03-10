@@ -36,4 +36,6 @@ workflows:
   build:
     jobs:
       - build
-      - releaseArtifact
+      - releaseArtifact:
+          requires:
+            - build
