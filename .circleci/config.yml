@@ -50,3 +50,4 @@ workflows:
       - deploy:
           requires:
             - releaseArtifact
+          context: dockerhub
