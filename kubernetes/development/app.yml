@@ -22,7 +22,7 @@ spec:
           name: cds-app
           env:
             - name: environment
-              value: "Development"
+              value: "Staging"
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
