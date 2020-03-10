@@ -47,7 +47,7 @@ workflows:
       - releaseArtifact:
           requires:
             - build
+          context: dockerhub
       - deploy:
           requires:
             - releaseArtifact
-          context: dockerhub
