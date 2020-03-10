@@ -11,9 +11,10 @@ spring:
       repositories:
         enabled: true
   redis:
-    host: localhost
+    host: berkeley-cds.redis.cache.windows.net
     port: 6379
     client-name: cds-microservice
+    password: ${REDIS_PASSWORD:password}
   thymeleaf:
     reactive:
       max-chunk-size: 8192
@@ -26,10 +27,24 @@ spring:
       repositories:
         enabled: true
   redis:
+    host: berkeley-cds.redis.cache.windows.net
+    port: 6379
+    client-name: cds-microservice
+    password: ${REDIS_PASSWORD:password}
+  thymeleaf:
+    reactive:
+      max-chunk-size: 8192
+---
+spring:
+  profiles: test
+  data:
+    redis:
+      repositories:
+        enabled: true
+  redis:
     host: localhost
     port: 6379
     client-name: cds-microservice
   thymeleaf:
     reactive:
       max-chunk-size: 8192
----

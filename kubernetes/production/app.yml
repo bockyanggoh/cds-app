@@ -28,6 +28,11 @@ spec:
           env:
             - name: environment
               value: "Production"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cds-redis
+                  key: spring.redis.password
           imagePullPolicy: Always
           ports:
             - containerPort: 9020
