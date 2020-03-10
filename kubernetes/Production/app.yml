@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cds-app
+  namespace: production
+  labels:
+    app: cds-app
+  annotations:
+    monitoring: "true"
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 50%
+  selector:
+    matchLabels:
+      app: cds-app
+  template:
+    metadata:
+      labels:
+        app: cds-app
+    spec:
+      containers:
+        - image: bockyanggoh/cds:latest
+          name: cds-app
+          env:
+            - name: environment
+              value: "Production"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9020
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cds-app-svc
+  namespace: production
+spec:
+  selector:
+    app: cds-app
+  ports:
+    - port: 80
+      targetPort: 9020
