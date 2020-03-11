@@ -19,7 +19,7 @@ spring:
       max-chunk-size: 8192
 ---
 spring:
-  profiles: Staging
+  profiles: staging
   data:
     redis:
       repositories:
@@ -34,13 +34,13 @@ spring:
       max-chunk-size: 8192
 ---
 spring:
-  profiles: Production
+  profiles: production
   data:
     redis:
       repositories:
         enabled: true
   redis:
-    host: berkeley-cds.redis.cache.windows.net
+    host: cds-redis-prod.redis.cache.windows.net
     port: 6379
     client-name: cds-microservice
     password: ${REDIS_PASSWORD:password}

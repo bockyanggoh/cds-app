@@ -27,7 +27,7 @@ spec:
           name: cds-app
           env:
             - name: environment
-              value: "Production"
+              value: "production"
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
