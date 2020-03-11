@@ -4,6 +4,6 @@ COPY . .
 RUN mvn clean package
 FROM openjdk:11-jdk-slim
 WORKDIR /app
-ENV environment="Production"
+ENV environment="production"
 COPY --from=builder /app/target/cds-0.0.1-SNAPSHOT.jar .
-ENTRYPOINT ["java", "-jar", "/app/cds-0.0.1-SNAPSHOT.jar", "${environment}"]
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=${environment}", "/app/cds-0.0.1-SNAPSHOT.jar"]

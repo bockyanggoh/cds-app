@@ -61,3 +61,4 @@ spring:
   thymeleaf:
     reactive:
       max-chunk-size: 8192
+---
