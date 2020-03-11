@@ -12,6 +12,9 @@ jobs:
           name: Run Tests
           command: |
             mvn clean test
+      - run:
+          name: Run Integration Tests
+          command: |
       - save_cache:
           paths:
             - ~/.m2

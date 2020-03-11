@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class RootController {
 
+    private final CounterService service;
+
     @Autowired
-    private CounterService service;
+    public RootController(CounterService service) {
+        this.service = service;
+    }
 
     @RequestMapping("/")
     public String index(final Model model)
