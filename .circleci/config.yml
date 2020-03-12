@@ -9,11 +9,7 @@ jobs:
           keys:
             - maven-repo-v1-{{.Branch}}-{{checksum "pom.xml"}}
       - run:
-          name: Run Tests
-          command: |
-            mvn clean test
-      - run:
-          name: Sonarscan
+          name: Tests
           command: |
             mvn clean verify sonar:sonar -Dsonar.login=${SONAR_TOKEN} -Dsonar.host.url=${SONAR_URL}
       - save_cache:
