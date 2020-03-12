@@ -90,7 +90,7 @@
         <profile>
             <id>coverage</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <sonar.host.url>${sonar.host.url}:http://localhost:9000</sonar.host.url>
