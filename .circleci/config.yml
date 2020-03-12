@@ -52,6 +52,7 @@ jobs:
     docker:
       - image: tinyworks/azcli:2.1.0-alpine
     steps:
+      - checkout
       - run:
           name: Deploy Production
           command: |
