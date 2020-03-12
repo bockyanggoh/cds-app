@@ -31,12 +31,7 @@ public class CounterService {
     }
 
     public String getCounter() {
-        try {
-            return redisTemplate.opsForValue().get(counter);
-        } catch (Exception e) {
-            logger.info(e.getMessage());
-            return null;
-        }
+        return redisTemplate.opsForValue().get(counter);
     }
     
 }
