@@ -21,11 +21,6 @@ public class ViewIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
-    public void PlaceholderTest() {
-        Assert.isTrue(true);
-    }
-
-    @Test
     public void RootPageRenderSuccess() throws Exception {
         this.mockMvc.perform(get("/"))
                 .andExpect(status().is(200));

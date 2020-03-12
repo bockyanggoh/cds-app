@@ -13,8 +13,9 @@ jobs:
           command: |
             mvn clean test
       - run:
-          name: Run Integration Tests
+          name: Sonarscan
           command: |
+            mvn clean verify sonar:sonar -Dsonar.login=${SONAR_TOKEN} -Dsonar.host.url=${SONAR_URL}
       - save_cache:
           paths:
             - ~/.m2

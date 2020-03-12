@@ -13,6 +13,7 @@ public class CounterService {
 
     private RedisTemplate<String, String> redisTemplate;
     private Logger logger;
+    private static final String counter="counter";
 
 
     @Autowired
@@ -22,16 +23,16 @@ public class CounterService {
     }
 
     public String incrementCounter() {
-        if(redisTemplate.opsForValue().get("counter") == null){
-            redisTemplate.opsForValue().set("counter", "0");
+        if(redisTemplate.opsForValue().get(counter) == null){
+            redisTemplate.opsForValue().set(counter, "0");
         }
-        redisTemplate.opsForValue().increment("counter");
+        redisTemplate.opsForValue().increment(counter);
         return getCounter();
     }
 
     public String getCounter() {
         try {
-            return redisTemplate.opsForValue().get("counter");
+            return redisTemplate.opsForValue().get(counter);
         } catch (Exception e) {
             logger.info(e.getMessage());
             return null;
