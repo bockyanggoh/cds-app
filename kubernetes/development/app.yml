@@ -41,5 +41,6 @@ spec:
   selector:
     app: cds-app
   ports:
+    type: ClusterIP
     - port: 80
       targetPort: 9020

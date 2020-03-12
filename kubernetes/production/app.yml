@@ -43,6 +43,7 @@ metadata:
   name: cds-app-svc
   namespace: production
 spec:
+  type: ClusterIP
   selector:
     app: cds-app
   ports:
