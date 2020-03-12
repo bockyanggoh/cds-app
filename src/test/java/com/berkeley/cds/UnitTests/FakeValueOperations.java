@@ -17,7 +17,10 @@ public class FakeValueOperations implements ValueOperations<String, String> {
     public FakeValueOperations(boolean setNull) {
         this.setNull = setNull;
     }
-
+    public FakeValueOperations(int i, boolean setNull) {
+        this.i = i;
+        this.setNull = setNull;
+    }
     private int i = 0;
     private boolean setNull;
     @SneakyThrows

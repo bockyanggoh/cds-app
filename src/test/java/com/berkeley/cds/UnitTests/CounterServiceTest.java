@@ -11,8 +11,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.util.Assert;
 
+import java.util.Random;
 
-public class CounterServiceTests {
+
+public class CounterServiceTest {
 
     @Mock
     private RedisTemplate<String, String> template;
@@ -27,13 +29,29 @@ public class CounterServiceTests {
     public void incrementCounterSuccessWithNoInitialValue() {
         ValueOperations v = new FakeValueOperations();
         Mockito.when(template.opsForValue()).thenReturn(v);
-        Assert.isTrue(svc.incrementCounter().equals(v.get("counter")));
+        Assert.isTrue(svc.incrementCounter().equals(v.get("counter")),"Counter should be 1");
     }
 
     @Test
     public void incrementCounterSuccessWithPriorValue() {
         ValueOperations v = new FakeValueOperations(true);
         Mockito.when(template.opsForValue()).thenReturn(v);
-        svc.incrementCounter().equals(v.get("counter"));
+        Assert.isTrue(svc.incrementCounter().equals(v.get("counter")), "Counter should be 1");
     }
+    @Test
+    public void incrementCounterSuccessWithRandomValue() {
+        int randomValue = new Random().nextInt(150000000);
+        ValueOperations v = new FakeValueOperations(randomValue, false);
+        Mockito.when(template.opsForValue()).thenReturn(v);
+        Assert.isTrue(svc.incrementCounter().equals(String.valueOf(randomValue+1)));
+
+    }
+
+    @Test
+    public void getCounterNonExistent() {
+        ValueOperations v = new FakeValueOperations(true);
+        Mockito.when(template.opsForValue()).thenReturn(v);
+        Assert.isNull(svc.getCounter(), "Non existent value should return null");
+    }
+
 }
