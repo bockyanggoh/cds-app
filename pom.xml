@@ -96,6 +96,7 @@
                 <sonar.host.url>${sonar.host.url}:http://localhost:9000</sonar.host.url>
                 <sonar.projectKey>cds-app</sonar.projectKey>
                 <sonar.login>${sonar.login}:placeholder</sonar.login>
+                <sonar.test.exclusions>**/*Test.java</sonar.test.exclusions>
             </properties>
             <build>
                 <plugins>

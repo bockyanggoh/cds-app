@@ -14,7 +14,7 @@ import org.springframework.util.Assert;
 import java.util.Random;
 
 
-public class CounterServiceTests {
+public class CounterServiceTest {
 
     @Mock
     private RedisTemplate<String, String> template;
