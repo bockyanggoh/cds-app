@@ -31,7 +31,7 @@ jobs:
             echo $DOCKER_USERNAME
             echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
             docker push bockyanggoh/cds
-  deployToKubernetes:
+  deployStaging:
     docker:
       - image: tinyworks/azcli:2.1.0-alpine
     steps:
@@ -48,6 +48,10 @@ jobs:
             chmod 700 *.sh
             ./kube-wait.sh staging cds-app
             kubectl get svc -lapp=cds-app-svc -n staging
+  deployProduction:
+    docker:
+      - image: tinyworks/azcli:2.1.0-alpine
+    steps:
       - run:
           name: Deploy Production
           command: |
@@ -69,7 +73,11 @@ workflows:
           requires:
             - build
           context: dockerhub
-      - deployToKubernetes:
+      - deployStaging:
+          requires:
+            - releaseArtifact
+          context: azuredeploy
+      - deployProduction:
           requires:
             - releaseArtifact
           context: azuredeploy
