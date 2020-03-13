@@ -38,9 +38,9 @@ metadata:
   name: cds-app-svc
   namespace: staging
 spec:
+  type: ClusterIP
   selector:
     app: cds-app
   ports:
-    type: ClusterIP
     - port: 80
       targetPort: 9020
