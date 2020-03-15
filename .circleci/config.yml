@@ -40,7 +40,7 @@ jobs:
           name: Deploy Staging
           command: |
             az login --service-principal --username $AZURE_USERNAME --password $AZURE_PASSWORD --tenant $AZURE_TENANT
-            az aks get-credentials -g poc-lms-rg -n poc-lms-002
+            az aks get-credentials -g aks-rg -n cds-cluster
             kubectl apply -f ./kubernetes/development/app.yml
             kubectl annotate deployment.v1.apps/cds-app kubernetes.io/change-cause="$(git log -1 --pretty=%B)" -n staging
             kubectl set image deployments/cds-app cds-app=bockyanggoh/cds:1.0.$CIRCLE_WORKFLOW_ID -n staging
@@ -57,7 +57,7 @@ jobs:
           name: Deploy Production
           command: |
             az login --service-principal --username $AZURE_USERNAME --password $AZURE_PASSWORD --tenant $AZURE_TENANT
-            az aks get-credentials -g poc-lms-rg -n poc-lms-002
+            az aks get-credentials -g aks-rg -n cds-cluster
             kubectl apply -f ./kubernetes/production/app.yml
             kubectl annotate deployment.v1.apps/cds-app kubernetes.io/change-cause="$(git log -1 --pretty=%B)" -n production
             kubectl set image deployments/cds-app cds-app=bockyanggoh/cds:1.0.$CIRCLE_WORKFLOW_ID -n production

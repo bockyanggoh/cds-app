@@ -1,32 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cds-app
-  namespace: staging
+  name: cds-app-stg
   labels:
-    app: cds-app
+    app: cds-app-stg
   annotations:
     monitoring: "true"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cds-app
+      app: cds-app-stg
   template:
     metadata:
       labels:
-        app: cds-app
+        app: cds-app-stg
     spec:
       containers:
         - image: bockyanggoh/cds:latest
-          name: cds-app
+          name: cds-app-stg
           env:
             - name: environment
               value: "staging"
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: cds-redis
+                  name: cds-redis-stg
                   key: spring.redis.password
           imagePullPolicy: Always
           ports:
@@ -35,12 +34,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cds-app-svc
-  namespace: staging
+  name: cds-app-svc-stg
 spec:
   type: ClusterIP
   selector:
-    app: cds-app
+    app: cds-app-stg
   ports:
     - port: 80
       targetPort: 9020

@@ -1,10 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cds-app
-  namespace: production
+  name: cds-app-prod
   labels:
-    app: cds-app
+    app: cds-app-prod
   annotations:
     monitoring: "true"
 spec:
@@ -16,22 +15,22 @@ spec:
       maxUnavailable: 50%
   selector:
     matchLabels:
-      app: cds-app
+      app: cds-app-prod
   template:
     metadata:
       labels:
-        app: cds-app
+        app: cds-app-prod
     spec:
       containers:
         - image: bockyanggoh/cds:latest
-          name: cds-app
+          name: cds-app-prod
           env:
             - name: environment
               value: "production"
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: cds-redis
+                  name: cds-redis-prod
                   key: spring.redis.password
           imagePullPolicy: Always
           ports:
@@ -40,12 +39,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: cds-app-svc
-  namespace: production
+  name: cds-app-svc-prod
 spec:
   type: ClusterIP
   selector:
-    app: cds-app
+    app: cds-app-prod
   ports:
     - port: 80
       targetPort: 9020
